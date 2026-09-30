@@ -6,13 +6,16 @@ Requires=openclaw-node-gateway-tunnel.service
 
 [Service]
 Type=simple
-ExecStart=%h/.local/share/openclaw-voice/venv/bin/python %h/.local/share/openclaw-voice/voice_assistant.py
+WorkingDirectory=%h/.local/share/openclaw-voice
+ExecStart=%h/.nvs/node/24.15.0/x64/bin/node %h/.local/share/openclaw-voice/dist/src/main.js
 Restart=on-failure
 RestartSec=5
 TimeoutStopSec=10
 UMask=0077
 EnvironmentFile=-%h/.config/openclaw-voice-assistant.env
 EnvironmentFile=-%h/.openclaw/gateway-node.env
+Environment=OPENCLAW_VOICE_DATA_DIR=%h/.local/share/openclaw-voice
+Environment=PATH=%h/.nvs/node/24.15.0/x64/bin:/usr/local/bin:/usr/bin
 Environment=HF_HUB_OFFLINE=1
 Environment=HF_HUB_DISABLE_TELEMETRY=1
 NoNewPrivileges=true

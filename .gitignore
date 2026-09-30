@@ -2,10 +2,13 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
-models/
+/models/
 *.wav
 *.pcm
 *.env
 !.env.example
 openclaw.json
 gateway-node.env
+node_modules/
+dist/
+.cache/
