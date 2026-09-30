@@ -8,6 +8,7 @@ Coordena wake word, resposta falada, campainhas e seguimentos da conversa.
 
 - Manter a captura ativa enquanto aguarda a wake word.
 - Suspender o microfone durante a fala e chamadas ao Gateway.
+- Aquecer o worker Kokoro em paralelo à inicialização do Whisper.
 - Gerenciar sinais de parada e liberar Whisper, microfone e worker TTS.
 
 ## Entradas e saídas

@@ -43,6 +43,10 @@ test("sends a voice turn into the persistent session and returns its final reply
     },
     { runId: "run-1", status: "started" },
     {
+      messages: [],
+      sessionInfo: { hasActiveRun: true, activeRunIds: ["run-1"] },
+    },
+    {
       messages: [
         {
           role: "assistant",
@@ -53,6 +57,7 @@ test("sends a voice turn into the persistent session and returns its final reply
       sessionInfo: { hasActiveRun: false, activeRunIds: [] },
     },
   ];
+  const waitIntervals: number[] = [];
   const gatewayCall: GatewayCall = async (method, params) => {
     callOrder.push({ method, params });
     return replies.shift() as Record<string, unknown>;
@@ -63,10 +68,13 @@ test("sends a voice turn into the persistent session and returns its final reply
     gatewayCall,
     "agent:voice:explicit:openclaw-local-voice",
     "voice",
-    async () => {},
+    async (milliseconds) => {
+      waitIntervals.push(milliseconds);
+    },
   );
 
   assert.equal(response, "Resposta da conversa.");
+  assert.deepEqual(waitIntervals, [100]);
   assert.equal(callOrder[1]?.method, "chat.send");
   assert.equal(callOrder[1]?.params.agentId, "voice");
   assert.equal(

@@ -212,7 +212,7 @@ async function handleWake(
 export async function main(): Promise<void> {
   const microphone = new Microphone();
   const ttsWorker = new KokoroWorkerClient();
-  const model = await loadWhisper();
+  let model: Awaited<ReturnType<typeof loadWhisper>> | undefined;
   let stopping = false;
   const stop = (): void => {
     stopping = true;
@@ -224,6 +224,14 @@ export async function main(): Promise<void> {
   process.once("SIGINT", stop);
   process.once("SIGTERM", stop);
   try {
+    void ttsWorker.warmUp().then(
+      () => logger.info("Local Kokoro TTS is ready"),
+      (error: unknown) => logger.error("Local Kokoro TTS warm-up failed", error),
+    );
+    model = await loadWhisper();
+    if (stopping) {
+      return;
+    }
     await microphone.start();
     logger.info(
       "Listening locally for OpenClaw; audio and recognized text are not logged or uploaded",
@@ -256,7 +264,7 @@ export async function main(): Promise<void> {
     process.off("SIGTERM", stop);
     await microphone.stop();
     await ttsWorker.close();
-    await model.dispose();
+    await model?.dispose();
   }
 }
 

@@ -21,6 +21,7 @@ Mantém a comunicação NDJSON com o worker Python que conserva a voz `pf_dora`.
 export function parseTtsResponse(line: string): PcmAudio;
 export class KokoroWorkerClient {
   synthesize(text: string): Promise<PcmAudio>;
+  warmUp(): Promise<void>;
   close(): Promise<void>;
 }
 ```
@@ -28,7 +29,8 @@ export class KokoroWorkerClient {
 ## Fluxo principal
 
 Envia uma linha JSON → recebe uma linha JSON com áudio base64 → valida e
-decodifica sem gravar o texto ou o áudio.
+decodifica sem gravar o texto ou o áudio. Uma síntese curta aquece o modelo
+antes da primeira resposta falada.
 
 ## Tratamento de erros e casos-limite
 

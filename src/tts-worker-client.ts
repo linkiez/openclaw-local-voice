@@ -120,6 +120,15 @@ export class KokoroWorkerClient {
   }
 
   /**
+   * Loads Kokoro before the first assistant reply is ready to speak.
+   *
+   * @returns A promise resolved after a short local synthesis completes.
+   */
+  async warmUp(): Promise<void> {
+    await this.synthesize("Pronto.");
+  }
+
+  /**
    * Stops the worker and waits for its process to exit.
    *
    * @returns A promise resolved after worker cleanup.

@@ -66,5 +66,5 @@ export const appConfig = Object.freeze({
   commandWaitMs: 8_000,
   followUpWaitMs: 15_000,
   chatTimeoutMs: 90_000,
-  chatPollIntervalMs: 250,
+  chatPollIntervalMs: 100,
 });

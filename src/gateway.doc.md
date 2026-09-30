@@ -31,7 +31,7 @@ export function askOpenClaw(
 ## Fluxo principal
 
 Lê histórico → rejeita sessão ocupada → envia `chat.send` com chave de
-idempotência → consulta `chat.history` até a resposta final.
+idempotência → consulta `chat.history` a cada 100 ms até a resposta final.
 
 ## Tratamento de erros e casos-limite
 

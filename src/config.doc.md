@@ -25,6 +25,7 @@ export const appConfig: Readonly<{
   sessionKey: string;
   commandWaitMs: number;
   followUpWaitMs: number;
+  chatPollIntervalMs: number;
 }>;
 ```
 
