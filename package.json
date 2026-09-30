@@ -15,7 +15,7 @@
     "tts": "node dist/src/tts-cli.js"
   },
   "dependencies": {
-    "@huggingface/transformers": "3.8.1"
+    "@huggingface/transformers": "4.3.0"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
