@@ -1,0 +1,24 @@
+[Unit]
+Description=OpenClaw local voice assistant service
+After=network-online.target pipewire-pulse.service openclaw-node-gateway-tunnel.service
+Wants=network-online.target
+Requires=openclaw-node-gateway-tunnel.service
+
+[Service]
+Type=simple
+ExecStart=%h/.local/share/openclaw-voice/venv/bin/python %h/.local/share/openclaw-voice/voice_assistant.py
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=10
+UMask=0077
+EnvironmentFile=-%h/.config/openclaw-voice-assistant.env
+EnvironmentFile=-%h/.openclaw/gateway-node.env
+Environment=HF_HUB_OFFLINE=1
+Environment=HF_HUB_DISABLE_TELEMETRY=1
+NoNewPrivileges=true
+PrivateTmp=true
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+models/
+*.wav
+*.pcm
+*.env
+!.env.example
+openclaw.json
+gateway-node.env
